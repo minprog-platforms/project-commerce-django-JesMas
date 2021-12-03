@@ -4,11 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User, Listing, Bid, Comment
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    return render(request, "auctions/index.html", {
+        "listings": Listing.objects.all()
+    })
 
 
 def login_view(request):
@@ -68,5 +70,8 @@ def create(request):
 def wishlist(request):
     return render(request, "auctions/wishlist.html")
 
-def listing(request):
-    return render(request, "auctions/listing.html")
+def listing(request, TITLE):
+    listing = Listing.objects.filter(title=TITLE).first()
+    return render(request, "auctions/listing.html", {
+        "listing" : listing
+    })

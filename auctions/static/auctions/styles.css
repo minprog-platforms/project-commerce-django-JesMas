@@ -1,3 +1,32 @@
 body {
     padding: 10px;
 }
+
+.listing_image_index {
+    max-width: 250px;
+    max-height: 300px;
+    height: auto;
+    width: auto;
+}
+
+.listing_entry {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-style: groove;
+    display: flex;
+    flex-direction: row;
+}
+
+.listing_entry_title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.listing_entry_description {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.listing_info {
+    display: flex;
+    flex-direction: column;
+    
+}

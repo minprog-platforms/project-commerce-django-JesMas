@@ -2,5 +2,19 @@
 
 {% block body %}
     <h2>Active Listings</h2>
+    
+        {% for listing in listings %}
+        <div class="listing_entry">
+            <img class="listing_image_index" src={{ listing.url }} alt="No image available"></img>
+            <div class="listing_info">
+                <a href="{% url 'listing' listing.title %}"><div class="listing_entry_title"> <h3>{{ listing.title }}</h3></div></a>
+                <div class="listing_entry_description"><p>{{ listing.description }}</p></div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </ul>
+
 
 {% endblock %}
