@@ -30,3 +30,40 @@ body {
     flex-direction: column;
     
 }
+
+.single_listing_image {
+    max-width: 500px;
+    max-height: 600px;
+    height: auto;
+    width: auto;
+}
+
+.single_listing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.listing_single_title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.listing_single_description {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.single_listing_info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;   
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.listing_single_user {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.listing_single_prize {
+
+}

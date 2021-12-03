@@ -9,6 +9,7 @@
             <div class="listing_info">
                 <a href="{% url 'listing' listing.title %}"><div class="listing_entry_title"> <h3>{{ listing.title }}</h3></div></a>
                 <div class="listing_entry_description"><p>{{ listing.description }}</p></div>
+                <div class="listing_entry_prize"><p>&euro;{{ listing.starting_bid }}</p></div>
             </div>
         </div>
         {% endfor %}

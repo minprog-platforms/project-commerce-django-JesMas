@@ -1,6 +1,28 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>{{ listing.title }}</h2>
 
+    <div class="single_listing">
+
+        <img class="single_listing_image" src={{ listing.url }} alt="No image available"></img>
+        <div class="single_listing_info">
+            <div class="listing_entry_title"> <h3>{{ listing.title }}</h3></div>
+            <div class="listing_single_description"><p>Description: <br>{{ listing.description }}</p></div>
+            <div class="listing_single_prize"><p>Current price: <br>&euro;{{ listing.starting_bid }}</p></div>
+            <div class="listing_single_user"><p>Sold by: <br>{{ listing.user }}</p></div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="single_prize">
+            <form action="{% url 'listing' listing.title %}" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit">
+            </form>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+    
 {% endblock %}

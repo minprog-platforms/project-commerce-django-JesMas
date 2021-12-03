@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django import forms
 
 from .models import User, Listing, Bid, Comment
 
@@ -64,14 +65,56 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
+class create_listing_form(forms.ModelForm):
+    class Meta:
+        model = Listing
+        fields = ['title', 'description', 'starting_bid', 'url']
+
+class bidding_form(forms.ModelForm):
+    class Meta:
+        model = Bid
+        fields = ['bid']
+
 def create(request):
-    return render(request, "auctions/create_listing.html")
+    if request.method == "POST":
+        form = create_listing_form(request.POST)
+        if form.is_valid():
+            listing = form.save(commit=False)
+            listing.user = request.user
+            if not listing.url:
+                listing.url = "https://lijv.nl/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg" 
+            listing.save()
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "auctions/create_listing.html", {
+                "form": form
+            })
+    else:
+            return render(request, "auctions/create_listing.html", {
+                "form": create_listing_form()
+            })
 
 def wishlist(request):
     return render(request, "auctions/wishlist.html")
 
 def listing(request, TITLE):
     listing = Listing.objects.filter(title=TITLE).first()
-    return render(request, "auctions/listing.html", {
-        "listing" : listing
+
+    if request.method == "POST":
+        form = bidding_form(request.POST)
+        if form.is_valid():
+            bidding = form.save(commit=False)
+            bidding.user = request.user
+            bidding.listing = request.listing
+            bidding.save()
+            return render(request, "auctions/listing.html")
+        else:
+            return render(request, "auctions/listing.html", {
+            "listing" : listing,
+            "form" : form
+    })
+    else:
+        return render(request, "auctions/listing.html", {
+        "listing" : listing,
+        "form" : bidding_form()
     })
