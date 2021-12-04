@@ -10,17 +10,39 @@
             <div class="listing_single_description"><p>Description: <br>{{ listing.description }}</p></div>
             <div class="listing_single_prize"><p>Current price: <br>&euro;{{ listing.starting_bid }}</p></div>
             <div class="listing_single_user"><p>Sold by: <br>{{ listing.user }}</p></div>
+            {% if user.is_authenticated %}
+            <div class="single_prize">
+                <form action="{% url 'listing' listing.title %}" method="POST">
+                    {% csrf_token %}
+                    {{ bid_form }}
+                    <input type="submit", name="bidding">
+                </form>
+            </div>
+            {% endif %}
         </div>
-        {% if user.is_authenticated %}
-        <div class="single_prize">
-            <form action="{% url 'listing' listing.title %}" method="POST">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit">
-            </form>
+        <div class="comment_section">
+            {% if user.is_authenticated %}
+            <div class="comment_form">
+                <form action="{% url 'listing' listing.title %}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <input type="submit", name="comment">
+                </form>
+            </div>
+            {% endif %}
+            <div class="comments">
+                {% for comment in comments %}
+                    <div class="comment">
+                        <p class="comment_info">Posted by {{ comment.user }}
+                        </p>
+                        {{ comment.comment_content }}
+                    </div>
+                {% empty %}
+                No comments here...
+                
+                {% endfor %}
+            </div>
         </div>
-        {% endif %}
-
     </div>
 
 

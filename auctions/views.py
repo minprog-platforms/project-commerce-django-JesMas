@@ -75,6 +75,11 @@ class bidding_form(forms.ModelForm):
         model = Bid
         fields = ['bid']
 
+class comment_form(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment_content']
+
 def create(request):
     if request.method == "POST":
         form = create_listing_form(request.POST)
@@ -99,22 +104,39 @@ def wishlist(request):
 
 def listing(request, TITLE):
     listing = Listing.objects.filter(title=TITLE).first()
+    comments = Comment.objects.filter(listing=listing)
 
     if request.method == "POST":
-        form = bidding_form(request.POST)
-        if form.is_valid():
-            bidding = form.save(commit=False)
-            bidding.user = request.user
-            bidding.listing = request.listing
-            bidding.save()
-            return render(request, "auctions/listing.html")
-        else:
-            return render(request, "auctions/listing.html", {
-            "listing" : listing,
-            "form" : form
-    })
+        if 'bidding' in request.POST:
+            form = bidding_form(request.POST)
+            if form.is_valid():
+                bidding = form.save(commit=False)
+                bidding.user = request.user
+                bidding.listing = Listing.objects.filter(title=TITLE).first()
+                bidding.save()
+                return HttpResponseRedirect(reverse("listing", args=[TITLE]))
+            else:
+                print("5")
+                return render(request, "auctions/listing.html", {
+                    "listing" : listing,
+                    "bid_form" : form
+                })
+        elif 'comment' in request.POST:
+            form = comment_form(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.user = request.user
+                comment.listing = listing
+                comment.save()
+                return HttpResponseRedirect(reverse("listing", args=[TITLE]))
+            else:
+                return render(request, "auctions/listing.html", {
+                    "comment_form" : form
+                })
     else:
         return render(request, "auctions/listing.html", {
         "listing" : listing,
-        "form" : bidding_form()
+        "comments" : comments,
+        "bid_form" : bidding_form(),
+        "comment_form" : comment_form()
     })
