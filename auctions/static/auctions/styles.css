@@ -1,5 +1,21 @@
 body {
     padding: 10px;
+    background-color: #f7f7f6;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar_main {
+    border-bottom-style: inset;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form-control {
+    width: 50%;
+    height: 100px;
 }
 
 .listing_image_index {
@@ -12,37 +28,53 @@ body {
 .listing_entry {
     margin-top: 10px;
     margin-bottom: 10px;
-    border-style: groove;
+    border-style: outset;
     display: flex;
     flex-direction: row;
 }
 
-.listing_entry_title {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
 }
 
-.listing_entry_description {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.listing_entry_title {
+    color: #116db4;
+}
+
+.listing_entry_prize {
+    margin-top: auto;
 }
 
 .listing_info {
     display: flex;
     flex-direction: column;
-    
+    padding-left: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.articlecolumn {
+    max-width: 850px;
+    width: auto;
+    margin: 0 auto;
+    background-color: white;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .single_listing_image {
-    max-width: 500px;
-    max-height: 600px;
+    max-width: 300px;
+    max-height: 400px;
     height: auto;
     width: auto;
 }
 
 .single_listing {
-    margin-top: 10px;
+    padding-top: 10px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .listing_single_title {
@@ -56,8 +88,8 @@ body {
 .single_listing_info {
     display: flex;
     flex-direction: column;
-    margin-left: 20px;   
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* margin: 0 auto; */
 }
 
 .listing_single_user {
@@ -65,5 +97,35 @@ body {
 }
 
 .listing_single_prize {
+    margin-top: auto;
+}
 
+.comment_section {
+    border-top-style: ridge;
+    margin-top: 10px;  
+    padding-top: 10px;
+}
+
+.comment_info {
+    position: absolute;
+    font-size: 10px;
+    bottom: 0;
+    right: 0;
+}
+
+.comment {
+    position: relative;
+    border-bottom-style: ridge;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.comment_contents {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.extra_listing_info {
+    margin-bottom: 20px;
 }

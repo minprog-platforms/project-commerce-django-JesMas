@@ -7,11 +7,12 @@ class User(AbstractUser):
     pass
 
 class Listing(models.Model):
-    title = models.CharField(max_length=64)
-    description = models.CharField(max_length=254)
-    starting_bid = models.DecimalField(decimal_places=2, max_digits=10)
-    url = models.CharField(max_length=254, blank=True)
+    title = models.CharField(max_length=128)
+    description = models.CharField(max_length=2048)
+    prize = models.DecimalField(decimal_places=2, max_digits=10)
+    url = models.CharField(max_length=512, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="listings")
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -31,5 +32,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.comment_content}"
+
 
         
